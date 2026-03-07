@@ -117,10 +117,12 @@ def signup():
             return redirect(url_for('login'))
 
         except Exception as e:
-            app.logger.error(f"Signup error: {str(e)}")
-            return render_template('signup.html', error='Registration failed. Please try again.')
+            # app.logger.error(f"Signup error: {str(e)}")
+            # return render_template('signup.html', error='Registration failed. Please try again.')
+            print("Signup error:", e)
+        return render_template('signup.html', error=str(e))
 
-    return render_template('signup.html')
+    #return render_template('signup.html')
 
 @app.route('/logout')
 def logout():
