@@ -120,7 +120,7 @@ def signup():
             # app.logger.error(f"Signup error: {str(e)}")
             # return render_template('signup.html', error='Registration failed. Please try again.')
             print("Signup error:", e)
-        return render_template('signup.html', error=str(e))
+            return render_template('signup.html', error=str(e))
 
     #return render_template('signup.html')
 
