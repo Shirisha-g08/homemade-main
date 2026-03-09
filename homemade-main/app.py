@@ -123,7 +123,7 @@ def login():
     #         # return render_template('signup.html', error=str(e))
 
     # return render_template('signup.html')
-    @app.route('/signup', methods=['GET', 'POST'])
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
         username = request.form['username'].strip()
