@@ -89,7 +89,41 @@ def login():
 
     return render_template('login.html')
 
-@app.route('/signup', methods=['GET', 'POST'])
+# @app.route('/signup', methods=['GET', 'POST'])
+# def signup():
+#     if request.method == 'POST':
+#         username = request.form['username'].strip()
+#         email = request.form['email'].strip()
+#         password = request.form['password']
+
+#         try:
+#             # Check if username exists
+#             response = users_table.get_item(Key={'username': username})
+#             if 'Item' in response:
+#                 return render_template('signup.html', error='Username already exists')
+
+#             # Hash password before storing
+#             hashed_password = generate_password_hash(password)
+
+#             # Store new user in DynamoDB
+#             users_table.put_item(
+#                 Item={
+#                     'username': username,
+#                     'email': email,
+#                     'password': hashed_password  # Store hashed password
+    #             }
+    #         )
+
+    #         return redirect(url_for('login'))
+
+    #     except Exception as e:
+    #         app.logger.error(f"Signup error: {str(e)}")
+    #         return render_template('signup.html', error='Registration failed. Please try again.')
+    #         # print("Signup error:", e)
+    #         # return render_template('signup.html', error=str(e))
+
+    # return render_template('signup.html')
+    @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
         username = request.form['username'].strip()
@@ -102,26 +136,25 @@ def signup():
             if 'Item' in response:
                 return render_template('signup.html', error='Username already exists')
 
-            # Hash password before storing
+            # Hash password
             hashed_password = generate_password_hash(password)
 
-            # Store new user in DynamoDB
+            # Store user in DynamoDB
             users_table.put_item(
                 Item={
                     'username': username,
                     'email': email,
-                    'password': hashed_password  # Store hashed password
+                    'password': hashed_password
                 }
             )
 
             return redirect(url_for('login'))
 
         except Exception as e:
-            app.logger.error(f"Signup error: {str(e)}")
-            return render_template('signup.html', error='Registration failed. Please try again.')
-            # print("Signup error:", e)
-            # return render_template('signup.html', error=str(e))
+            print("Signup error:", e)
+            return render_template('signup.html', error="Registration failed")
 
+    # For GET request
     return render_template('signup.html')
 
 @app.route('/logout')
